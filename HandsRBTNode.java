@@ -1,5 +1,3 @@
-package model1;
-
 public class HandsRBTNode
 {
     Hands myHand;

@@ -1,5 +1,3 @@
-package model1;
-
 public class Hands {
     
     private Card[] thisHand = new Card[5];
@@ -258,9 +256,6 @@ public class Hands {
             System.out.print("[IV]");
     }
 
-    // Lab 2: Required Helper Function
-    // Lab 2: Required Helper Function
-    // Lab 2: Required Helper Function
     public boolean hasCard(Card thisCard)
     {
         for(int i = 0; i < 5; i++)

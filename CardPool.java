@@ -1,5 +1,3 @@
-package model1;
-
 import java.util.Random;
 
 public class CardPool 
@@ -57,9 +55,6 @@ public class CardPool
             bitVec[index] = true;            
             tempCards[count++] = myPool[index];                        
         }       
-
-        // for(int i = 0; i < n; i++)
-        //     tempCards[i].printCard();
 
         return tempCards;        
     }    

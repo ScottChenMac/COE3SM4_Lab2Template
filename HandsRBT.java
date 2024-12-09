@@ -1,6 +1,6 @@
-package model1;
-
 import java.util.Vector;
+
+// To be modified for Integration
 
 public class HandsRBT {
     
@@ -41,34 +41,45 @@ public class HandsRBT {
         return (thisNode == null || thisNode.colour == BLACK);
     }
 
-    // Required helper function for fixing RBT properties
+    
+    // [Problem 1] - Helper Functions to support all the RBT colour correction operations
+
+    // [Problem 1-1] Get Sibling
     private HandsRBTNode getSibling(HandsRBTNode thisNode)
     {
-        HandsRBTNode parent = thisNode.parent;
-
-        if(thisNode == parent.left)         return parent.right;
-        else if(thisNode == parent.right)   return parent.left;
-        else
-            throw new IllegalStateException("Parent and Children are Unrelated.");            
+        // Use the parent member to access the sibling
+        
+        // If thisNode has no sibling, you can then
+        // throw new IllegalStateException("Parent and Children are Unrelated.");            
     }    
 
-    // Required helper function for fixing RBT properties
+    // [Problem 1-2] Get Uncle
     private HandsRBTNode getUncle(HandsRBTNode parent)
     {
-        HandsRBTNode grandparent = parent.parent;
-        if(grandparent.left == parent)
-            return grandparent.right;
-        else if(grandparent.right == parent)
-            return grandparent.left;
-        else
-            throw new IllegalStateException("Provided Parent is NOT a child of the Grandparent");
+        // Use the parent member to access the grandparent
+        // Then find the uncle of the parent from the grandparent
+        
+        // If parent does not have an uncle, you can then
+        // throw new IllegalStateException("Provided Parent is NOT a child of the Grandparent");
     }
 
 
-    // Activity 1 - Design Rotation Algorithm
-    /////////////////////////////////////////////////
+    
+    
+    // [Problem 2] Design Rotation Algorithms
 
-    // Required Helper Functions for RBT Rotation
+    // [Problem 2-1] Complete the Parent-Child replacement algorithm (required for many RBT operations)
+    private void replaceParentsChild(HandsRBTNode parent, HandsRBTNode oldChild, HandsRBTNode newChild)
+    {
+        if(parent == null)  root = newChild;
+        else if(parent.left == oldChild) parent.left = newChild;
+        else if(parent.right == oldChild) parent.right = newChild;
+        else throw new IllegalStateException("Parents and Children are unrelated...");
+
+        if(newChild != null) newChild.parent = parent;
+    }
+
+    // [Problem 2-2] Complete the Classic child-parent rotation LEFTWARD
     private void rotateLeft(HandsRBTNode thisNode)
     {
         HandsRBTNode parent = thisNode.parent;
@@ -83,7 +94,7 @@ public class HandsRBT {
         replaceParentsChild(parent, thisNode, rightChild);
     }
 
-    // Required Helper Functions for RBT Rotation
+    // [Problem 2-3] Complete the Classic child-parent rotation RIGHTWARD
     private void rotateRight(HandsRBTNode thisNode)
     {
         HandsRBTNode parent = thisNode.parent;
@@ -98,16 +109,7 @@ public class HandsRBT {
         replaceParentsChild(parent, thisNode, leftChild);
     }
 
-    // Required Helper Functions for RBT Rotation
-    private void replaceParentsChild(HandsRBTNode parent, HandsRBTNode oldChild, HandsRBTNode newChild)
-    {
-        if(parent == null)  root = newChild;
-        else if(parent.left == oldChild) parent.left = newChild;
-        else if(parent.right == oldChild) parent.right = newChild;
-        else throw new IllegalStateException("Parents and Children are unrelated...");
-
-        if(newChild != null) newChild.parent = parent;
-    }
+    
 
 
 
@@ -118,12 +120,8 @@ public class HandsRBT {
     {
         HandsRBTNode node = root;
 
-        // thisHand.printMyHand();        
-
         while(node != null)
-        {
-            // System.out.println();
-            // node.myHand.printMyHand();
+        {           
 
             if(node.myHand.isMyHandLarger(thisHand)) 
             {
@@ -135,7 +133,6 @@ public class HandsRBT {
             }
             else // Matched
             {
-                // System.out.println("\nFOUND!");
                 return node;
             }
         }
@@ -144,6 +141,12 @@ public class HandsRBT {
         // can also use recursive method
     }
 
+
+
+    // [Problem 3] RBT Node Insertion and Colour Correction (Hard!!)
+
+    // [Problem 3-1] Implement the basic BST traversal and insertion algorithm
+    //               Then insert the node RED, and carry out recursive colour correction
     public void insert(Hands thisHand)
     {
         HandsRBTNode node = root;
@@ -197,9 +200,9 @@ public class HandsRBT {
         PostInsertRBTCorrection(newNode);
     }
 
-    // Activity 2 - Design Post-Insertion RBT Colour Correction
-    ///////////////////////////////////////////////////////////
     
+    // [Problem 3-2] Design the post-insertion RBT colour correction algorithm
+    //               Heed the FIVE CASES to handle!!! (Test cases are provided for each case)
     private void PostInsertRBTCorrection(HandsRBTNode thisNode)
     {
         HandsRBTNode parent = thisNode.parent;
@@ -269,6 +272,14 @@ public class HandsRBT {
         } 
     }
 
+
+    // The rest of the code are provided as existing features
+    // The rest of the code are provided as existing features
+    // The rest of the code are provided as existing features
+
+    // No need to modify the remaining contents
+    // No need to modify the remaining contents
+    // No need to modify the remaining contents
     
     public void deleteInvalidHands(Hands consumedHand)
     {
@@ -284,20 +295,9 @@ public class HandsRBT {
         Vector<Hands> targetHands = new Vector<Hands>();
         registerHandsWithCard(targetHands, thisCard, root);
 
-        // System.out.println();
-        // System.out.println("Hands to Remove:");
-        // System.out.println();
-        // for(int i = 0; i < targetHands.size(); i++)
-        // {
-        //     targetHands.get(i).printMyHand();
-        //     System.out.println();
-        // }
-
         // then, invoke delete for every identified node.
         for(int i = 0; i < targetHands.size(); i++)
-        {
-            // System.out.printf("\nDeletion Step %d: \n", i+1);
-            // printRBT();
+        {            
             delete(targetHands.get(i));
         }
     }
@@ -322,11 +322,6 @@ public class HandsRBT {
 
     public void delete(Hands thisHand)
     {
-        // System.out.println("Current Hands to be Removed:");
-        // thisHand.printMyHand();
-        // System.out.println();
-        
-        
         HandsRBTNode node = root;
 
         // First, search for node
@@ -342,7 +337,6 @@ public class HandsRBT {
             }
             else 
             {
-                //if(node.myHand.isMyHandEqual(thisHand)) System.out.println("FOUND!");
                 break;  // equal
             }
         }
@@ -416,19 +410,8 @@ public class HandsRBT {
         if(thisNode == root) return;  
         // may want to optionally colour the root node BLACK
 
-
         HandsRBTNode sibling = getSibling(thisNode);
-        // if(sibling == null)
-        // {
-        //     System.out.println("\n Sibling Doesn't Exist?");
-        // }
-        // else
-        // {
-        //     System.out.println("\n Sibling Hand: ");
-        //     sibling.myHand.printMyHand();
-        // }
-        
-
+           
         // Case 2 - Red Sibling
         if(sibling.colour == RED)
         {

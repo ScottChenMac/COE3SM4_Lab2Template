@@ -1,5 +1,3 @@
-package model1;
-
 // This is the replacement module for MaxHeap (to hide away Lab 1 solution)
 
 public class HandsBST {
@@ -26,21 +24,17 @@ public class HandsBST {
         if(thisNode == null)
         {
             thisNode = new HandsBSTNode(thisHand);
-            thisHand.printMyHand();
-            System.out.println(" Inserted new!");
             return thisNode;
         }
         
         if(thisHand.isMyHandSmaller(thisNode.myHand)) 
         {
             thisNode.left = insert(thisHand, thisNode.left);
-            System.out.println("Left");
         }
             
         else if(thisHand.isMyHandLarger(thisNode.myHand))
         {
             thisNode.right = insert(thisHand, thisNode.right);
-            System.out.println("Right");
         }
             
         else;

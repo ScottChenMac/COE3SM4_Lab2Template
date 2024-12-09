@@ -1,5 +1,3 @@
-package model1;
-
 import java.util.*;
 
 public class ModelCode_CardGame {
@@ -22,60 +20,12 @@ public class ModelCode_CardGame {
         int aiScore = 0, playerScore = 0; 
         
         myCardPool = new CardPool();        
-        //myCardPool.printPool();        
-
+        
         aiCards = new Card[aiPocketSize];
         aiCards = myCardPool.getRandomCards(POCKETSIZE);
         sortCards(aiCards, POCKETSIZE);
-        
-            
-        // Repeat until out of cards
-        // Lab 1 Demo: Must Always Generate the Best 5-card Set sequences - Aggressive Max Approach
-        /*
-        for(int i = 0; aiPocketSize > 4; i++)
-        {            
-            System.out.println("AI Pocket Cards:");
-            for(int j = 0; j < aiPocketSize; j++)
-            {            
-                aiCards[j].printCard();
-            }
-            System.out.println();
+       
 
-            myMaxHeap = new HandsMaxHeap(2*aiPocketSize * aiPocketSize);
-            generateHandsIntoHeap(aiCards, aiPocketSize);               
-            //myMaxHeap.printHeap();     
-            
-            System.out.printf("%dst Hand: ", (i+1));
-            
-            if(myMaxHeap.getSize() > 0)
-            {
-                // Put out the Max Hand
-                aiHand = myMaxHeap.removeMax();                            
-            }
-            else // If Heap Size == 0 after recomputation, put together a random hand
-            {
-                aiHand = new Hands(aiCards[0], aiCards[1], aiCards[2], aiCards[3], aiCards[4]);
-            }
-            aiHand.printMyHand();
-
-            // Remove the Cards used in my Move, Recompute Max Heap
-            tempCards = new Card[aiPocketSize - 5];
-            for(int j = 0, k = 0; j < aiPocketSize; j++)
-            {
-                if( !aiCards[j].isMyCardEqual(aiHand.getCard(0)) &&
-                    !aiCards[j].isMyCardEqual(aiHand.getCard(1)) &&
-                    !aiCards[j].isMyCardEqual(aiHand.getCard(2)) &&
-                    !aiCards[j].isMyCardEqual(aiHand.getCard(3)) &&
-                    !aiCards[j].isMyCardEqual(aiHand.getCard(4)) )
-                {
-                    tempCards[k++] = aiCards[j];
-                }
-            }
-            aiCards = tempCards;
-            aiPocketSize -= 5;
-        }
-        */
-        
 
         // Lab 2 - Turn-base AI (Aggresive) vs Player
 
@@ -185,6 +135,7 @@ public class ModelCode_CardGame {
             //     System.out.println("\n [RESULT] Draw");
             // }
 
+            
             // Then, AI generates its aggresive hand : BST Version           
             aiBST = new HandsBST();
             generateHandsIntoBST(aiCards, aiPocketSize, aiBST);  
